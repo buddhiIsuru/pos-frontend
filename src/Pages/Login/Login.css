@@ -1,0 +1,35 @@
+.login-container{
+    margin: 35% 5%;
+}
+.login-container h4{
+    text-align: center;
+    color: #ea7c69;
+}
+
+.login-container input{
+    border:1px solid #ea7c69;
+    background-color: #1f1d2b;
+    margin: 10px 0;
+    color: white;
+    padding: 7px 10px;
+    outline: #ea7c69;
+    border-radius: 5px;
+    width: 100%;
+}
+.login-container input::selection{
+    border:1px solid #ea7c69;
+    background-color: #1f1d2b;
+    padding: 5px 10px;
+    outline: #ea7c69;
+}
+
+.login-container button{
+    border:1px solid #ea7c69;
+    background-color: #ea7c69;
+    color: white;
+    padding: 5px 10px;
+    outline: #ea7c69;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 100%;
+}

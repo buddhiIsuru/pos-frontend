@@ -1,0 +1,30 @@
+.item-card{
+    padding: 10px;
+    background: #1f1d2b;
+    border-radius: 10px;
+    margin: 10px;
+    height: fit-content;
+}
+
+.item-card-header{
+    text-align: center;
+}
+
+.item-card-body{
+    text-align: center;
+    padding: 10px;
+}
+.item-name{
+    font-size: 18px;
+    color: white;
+}
+
+.item-price{
+    font-size: 20px;
+    font-weight: 700;
+    color: gold;
+}
+
+.item-card-foter{
+    text-align: center;
+}

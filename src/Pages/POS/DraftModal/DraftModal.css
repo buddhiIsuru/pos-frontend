@@ -1,0 +1,59 @@
+.discount-input{
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.discount-button{
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid black;
+    background: #ea7c69;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.proceed-button{
+    text-align: center;
+    padding: 5px;
+    background: #ea7c69;
+    border-radius: 5px;
+    border: none;
+}
+.remove-button{
+    text-align: center;
+    padding: 5px;
+    background: transparent;
+    border-radius: 5px;
+    border: none;
+}
+.remove-button:hover{
+    background: transparent;
+}
+.table-header{
+    color: white;
+    padding: 5px;
+    background:  #6c757d;
+    /* border-radius: 5px; */
+}
+.table-header>tr>th{
+    color: white;
+    padding: 5px;
+    /* border:  1px solid #ea7c69; */
+    /* border-radius: 5px; */
+}
+
+.table-body{
+    color: white;
+    padding: 5px;
+    background:  #6c757d;
+    /* border-radius: 5px; */
+}
+.table-body>tr>td{
+    color: white;
+    padding: 5px;
+    /* border-bottom:  1px solid #ea7c69; */
+    /* border-radius: 5px; */
+}

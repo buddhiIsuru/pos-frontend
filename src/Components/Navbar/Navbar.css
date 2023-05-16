@@ -1,0 +1,16 @@
+.date-span{
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    /* top: -10px; */
+    color: #8e939a;
+    z-index: 10000;
+}
+
+.nav-button-row{
+    justify-content: space-around;
+}
+.nav-button{
+    margin: 0 5px;
+    justify-content: space-around;
+}

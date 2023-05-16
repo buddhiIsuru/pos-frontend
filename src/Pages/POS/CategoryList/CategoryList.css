@@ -1,0 +1,28 @@
+.category-list {
+    width: 700px;
+    overflow-x: auto;
+}
+.category-sub-list {
+    display: inline-flex;
+    width: 1000px;
+}
+
+.category-list::-webkit-scrollbar {
+    display: none;
+}
+
+.category-btn{
+    background: transparent;
+    border-bottom: 2px solid #ea7c69;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-radius: 0;
+    margin: 0 10px;
+    text-align: left;
+}
+
+.category-btn:hover{
+    background: transparent;
+    border-bottom: 2px solid #ea7c69;
+}

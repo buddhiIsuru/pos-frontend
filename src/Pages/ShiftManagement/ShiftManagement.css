@@ -1,0 +1,13 @@
+.sm-container{
+    background: #1f1d2b;
+    padding: 25px;
+    border-radius: 10px;
+}
+.sm-close-btn{
+    background: #252836;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ea7c69;
+    color: #ea7c69;
+    width: 25%;
+}
