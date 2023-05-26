@@ -7,7 +7,7 @@ import { getCategoryOutletVice } from "../../Service/categoryService";
 import { getProductCategoryVice } from "../../Service/productService";
 import PaymentModal from "./PaymentPages/PaymentModal";
 import DiscountModal from "./DiscountModal/DiscountModal";
-import { getDraftInvoiceList, getInvoiceData, getLatestInvoiceId, getShiftInvoiceReport, saveInvoice } from "../../Service/invoiceService";
+import { cancelInvoiceOutlet, getDraftInvoiceList, getInvoiceData, getLatestInvoiceId, getShiftInvoiceReport, saveInvoice } from "../../Service/invoiceService";
 import ChargesModal from "./ChargesModal/ChargesModal";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
 import { BillLayout } from "./Bill/BillLayout";
@@ -15,6 +15,8 @@ import DraftModal from "./DraftModal/DraftModal";
 import { localStorageGetItem } from "../../constance/LocalStorageManagement";
 import CustomerModal from "./CustomerModal/CustomerModal";
 import { saveCustomer } from "../../Service/customerService";
+import { imageBaseUrl } from './../../constance/baseUrl';
+import Footer from "./Footer/Footer";
 
 const POSView = () => {
 
@@ -22,6 +24,7 @@ const POSView = () => {
 
     const [tax, setTax] = useState(0);
     const [discount, setDiscount] = useState(0);
+    const [total, setTotal] = useState(0);
     const [subTotal, setSubTotal] = useState(0);
     const [grandTotal, setGrandTotal] = useState(0);
     const [chargesAmount, setChargesAmount] = useState(0);
@@ -42,10 +45,12 @@ const POSView = () => {
     const [paymentModal, setPaymentModal] = useState(false);
     const [discountModal, setDiscountModal] = useState(false);
     const [customerModal, setCustomerModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [invoiceId, setInvoiceID] = useState(null);
     const [outletId, setOutletID] = useState(null);
     const [outletName, setOutletName] = useState(null);
+    const [logoId, setLogoId] = useState(null);
     const [customerID, setCustomerID] = useState(null);
 
     const [orderId, setOrderID] = useState("");
@@ -58,6 +63,7 @@ const POSView = () => {
     useEffect(() => {
         setOutletID(localStorageGetItem("outlet").id);
         setOutletName(localStorageGetItem("outlet").outletName);
+        setLogoId(localStorageGetItem("outlet").logoId);
         getAllCategory(localStorageGetItem("outlet").id);
         getInvoiceReport(1);
         getLatestInvoice(localStorageGetItem("outlet").id);
@@ -86,7 +92,7 @@ const POSView = () => {
     }
 
     const getAllDraftList = async () => {
-        const response = await getDraftInvoiceList();
+        const response = await getDraftInvoiceList(outletId);
         if (response.status === 200) {
             setDraftList(response.data);
         }
@@ -101,14 +107,16 @@ const POSView = () => {
     }
 
     const selectProductClick = async (data) => {
+        console.log(data);
         const cartDataList = cartList;
         const cartObj = {
             id: null,
             productId: data.id,
+            taxIncluded: data.taxIncluded ? data.taxIncluded : false,
             productName: data.name,
             product_discount: data.discount,
             product_qty: 1,
-            product_amount: data.price,
+            product_amount: data.discount? data.price-data.price*data.discount/100 : data.price,
             img: data.imageId,
             remark: "",
         }
@@ -147,10 +155,14 @@ const POSView = () => {
             if (cartDataList[i].product_discount) {
                 total_discount = total_discount + (cartDataList[i].product_amount * cartDataList[i].product_discount / 100);
             }
+            if (cartDataList[i].taxIncluded) {
+                tax = tax + (cartDataList[i].product_amount * cartDataList[i].product_qty) * 5 / 100;
+            }
         }
-        tax = amount * 5 / 100;
+
         mainDiscount = amount * mainDiscount / 100;
-        setSubTotal(amount);
+        setTotal(amount);
+        setSubTotal(amount + tax + chargesAmount);
         setDiscount(total_discount + mainDiscount);
         setTax(tax);
         setGrandTotal(amount + tax + chargesAmount - total_discount);
@@ -216,8 +228,19 @@ const POSView = () => {
         }
     }
 
+    const validateDraftInvoice = async () => {
+        if (cartList.length === 0) {
+            alert("Please add item");
+        } else if (!orderType) {
+            alert("Please select order type");
+        } else {
+            addInvoice();
+        }
+    }
+
 
     const addInvoice = async () => {
+        setIsLoading(true);
         const data = {
             id: invoiceId,
             total_qty: cartList.length,
@@ -246,6 +269,7 @@ const POSView = () => {
             getLatestInvoice(response.data.id);
         }
         console.log(data);
+        setIsLoading(false);
     }
 
     const addCustomer = async (customer) => {
@@ -310,6 +334,14 @@ const POSView = () => {
         }
     }
 
+    const removeInvoice = async (id) => {
+        const response = await cancelInvoiceOutlet(id);
+        if (response.status === 200) {
+            setDraftModal(false);
+            alert("Invoice Removed Successfully");
+        }
+    }
+
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
@@ -319,6 +351,15 @@ const POSView = () => {
         //     const disValue=total-total*(value/100);
         //     setDiscount(disValue);
         calculateCartPricedata(cartList);
+    }
+
+    const onCLickKOT = () => {
+        setIsLoading(true);
+        const timer = setTimeout(() => { handlePrint(); setIsLoading(false); }, 1000);
+    }
+    const onDraft = () => {
+        setIsLoading(true);
+        setTimeout(() => { validateDraftInvoice(); setIsLoading(false); }, 1000);
     }
 
     return (
@@ -350,10 +391,11 @@ const POSView = () => {
                     discount={discountValue}
                     paymentType={paymentType}
                     outletName={outletName}
+                    logo={imageBaseUrl + logoId}
                 />
             </div>
             <Row>
-                <Col lg={8}>
+                <Col lg={7}>
                     <CategoryList
                         dataList={categoryList}
                         selectCat={selectCategory}
@@ -364,8 +406,9 @@ const POSView = () => {
                         onSelectProductClick={(data) => selectProductClick(data)}
                     />
                 </Col>
-                <Col lg={4} style={{ background: "#1f1d2b", marginTop: "-15px" }}>
+                <Col lg={5} style={{ background: "#1f1d2b", marginTop: "-15px" }}>
                     <CartSection
+                        totalAmount={total}
                         taxAmount={tax}
                         orderId={orderId}
                         orderType={orderType}
@@ -377,24 +420,27 @@ const POSView = () => {
                         chargesAmount={chargesAmount}
                         grandTotalAmount={grandTotal}
                         customerVehicleNo={customerVehicleNo}
+                        isLoading={isLoading}
                         paymentIsDissable={!orderType || !cartList.length > 0}
                         onPlusClick={(index) => plusCartItem(index)}
                         onClickCustomer={() => setCustomerModal(true)}
-                        onClickPayment={() => setPaymentModal(true)}
+                        onClickPayment={() => { setPrintLayout("BILL"); setPaymentModal(true) }}
                         setChargesModal={() => setChargesModal(true)}
                         setOrderType={(value) => setOrderType(value)}
                         onMinusClick={(index) => minusCartItem(index)}
                         setDiscountModal={() => setDiscountModal(true)}
                         setCustomerVehicleNo={(index) => setCustomerVehicleNo(index)}
                         onClickDraft={() => { getAllDraftList(); setDraftModal(true) }}
-                        onClickKOT={() => { setPrintLayout("KOT"); handlePrint(); }}
+                        onClickKOT={() => { setPrintLayout("KOT"); onCLickKOT(); }}
                         onRemoveClick={(index) => removeCartItem(index)}
                         onChenageRemark={(index, value) => setRemark(index, value)}
                     />
                 </Col>
             </Row>
             <PaymentModal
+                totalAmount={total}
                 taxAmount={tax}
+                chargesAmount={chargesAmount}
                 show={paymentModal}
                 cashAmount={cashAmount}
                 subTotalAmount={subTotal}
@@ -407,13 +453,15 @@ const POSView = () => {
                 changePaymentType={(data) => setPaymentType(data)}
                 onClickNoteButton={(data) => onClickNoteButton(data)}
                 onClickNumberButton={(data) => onClickNumberPadButton(data)}
-                onClickAddDraft={() => { setIsDraft(true); validateInvoice() }}
+                onClickAddDraft={() => { setIsDraft(true); onDraft() }}
+                isLoading={isLoading}
             />
             <DraftModal
                 show={draftModal}
                 draftList={draftList}
                 handleClose={() => setDraftModal(false)}
                 getClickOrderData={(data) => setSelectedDraftData(data)}
+                clickRemoveOrder={(data) => removeInvoice(data)}
             />
             <DiscountModal
                 show={discountModal}
@@ -434,6 +482,7 @@ const POSView = () => {
                 handleClose={() => setChargesModal(false)}
                 onChangeChargesList={(value) => { calculateCharges(value); setchargesSet(value) }}
             />
+            {/* <Footer/> */}
         </>
     )
 }

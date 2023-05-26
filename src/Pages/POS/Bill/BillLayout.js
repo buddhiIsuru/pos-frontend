@@ -19,6 +19,7 @@ export const BillLayout = React.forwardRef((props, ref) => {
             cartDataList={props.cartDataList}
             orderId={props.orderId}
             outletName={props.outletName}
+            logo={props.logo}
           />
           : props.layout === "REPORT" ?
             <Report
@@ -61,6 +62,7 @@ export const BillLayout = React.forwardRef((props, ref) => {
                 grandTotal={props.grandTotal}
                 discount={props.discountValue}
                 tax={props.tax}
+                logo={props.logo}
                 charges={props.chargesAmount}
                 orderType={props.orderType}
                 paymentType={props.paymentType}

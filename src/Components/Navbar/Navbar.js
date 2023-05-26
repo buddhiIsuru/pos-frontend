@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { AiOutlineFullscreen } from "@react-icons/all-files/ai/AiOutlineFullscreen";
 import { BiFullscreen } from "@react-icons/all-files/bi/BiFullscreen";
-import { FaCalculator } from "@react-icons/all-files/fa/FaCalculator";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import './Navbar.css'
 import moment from "moment";
 import { localStorageGetItem } from "../../constance/LocalStorageManagement";
 
-const MainNavbar = () => {
+const MainNavbar = (props) => {
 
     const[companyName,setCompanyName]=useState("");
 
@@ -50,10 +47,10 @@ const MainNavbar = () => {
                         </Nav.Link> */}
                     </Nav>
                     <div className="nav-button-row">
-                        {/* <Button className="nav-button">
+                        <Button className="nav-button" onClick={props.handle.enter}>
                             <BiFullscreen size={20} />
                         </Button>
-                        <Button className="nav-button">
+                        {/* <Button className="nav-button">
                             <FaCalculator size={20} />
                         </Button> */}
                     </div>

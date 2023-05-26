@@ -53,8 +53,8 @@
     width: 22%;
 }
 
-.customer-input{
-    border:1px solid #ea7c69;
+.customer-input {
+    border: 1px solid #ea7c69;
     background-color: #1f1d2b;
     color: white;
     padding: 7px 10px;
@@ -62,15 +62,16 @@
     border-radius: 5px;
     width: 100%;
 }
-.customer-input::selection{
-    border:1px solid #ea7c69;
+
+.customer-input::selection {
+    border: 1px solid #ea7c69;
     background-color: #1f1d2b;
     padding: 5px 10px;
     outline: #ea7c69;
 }
 
-.customer-button{
-    border:1px solid #ea7c69;
+.customer-button {
+    border: 1px solid #ea7c69;
     background-color: #1f1d2b;
     padding: 2px 10px;
     outline: #ea7c69;
@@ -100,10 +101,12 @@
     font-size: 16px;
     padding: 5px 0;
 }
+
 .order-summery-section-left-item {
     width: 60%;
     text-align: left;
 }
+
 .order-summery-section-right-item {
     width: 40%;
     text-align: right;
@@ -118,56 +121,66 @@
     color: white;
     padding: 5px 0;
 }
+
 .order-summery-section-left-item-gt {
     width: 60%;
     text-align: left;
 }
-.order-summery-section-right-item-gt{
+
+.order-summery-section-right-item-gt {
     width: 40%;
     text-align: right;
 }
 
-.button-row{
+.button-row {
     width: 100%;
     display: inline-flex;
     margin: 10px 0;
     justify-content: space-between;
 }
 
-.button-kot{
+.button-kot {
     width: 35%;
     background: #ea7c69;
     color: white;
     border: 1px solid #8e939a;
 }
 
-.button-payment{
+.button-payment {
     width: 60%;
     background: #ea7c69;
     color: white;
     border: 1px solid #8e939a;
 }
 
-.button-discount{
+.button-discount {
     width: 32%;
     background: #252836;
-    border: 1px solid   #ea7c69;
+    border: 1px solid #ea7c69;
     color: white;
     border: 1px solid #8e939a;
 }
-.button-payment:hover{
+
+.button-payment:hover {
     background: #252836;
     border: 2px solid #ea7c69;
 }
-.button-kot:hover{
+
+.button-kot:hover {
     background: #252836;
     border: 2px solid #ea7c69;
 }
-.button-discount:hover{
+
+.button-discount:hover {
     background: #ea7c69;
 }
 
-.button-payment:disabled{
+.button-payment:disabled {
     background: #252836;
     color: white;
-  }
+}
+
+.button-kot:disabled {
+    background: #252836;
+    color: white;
+}
