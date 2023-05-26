@@ -4,7 +4,7 @@
 }
 .category-sub-list {
     display: inline-flex;
-    width: 1000px;
+    width: 1500px;
 }
 
 .category-list::-webkit-scrollbar {

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { vatNo, vatPercentage } from "../../../constance/Constance";
+import { imageBaseUrl } from "../../../constance/baseUrl";
+import { Image } from "react-bootstrap";
+import img1 from '../../../assests/holder.png';
 
 const KOT = (props) => {
     const [printedDate, setPrinteddate] = useState(null);
@@ -16,8 +19,17 @@ const KOT = (props) => {
                             {props.outletName}
                         </td>
                     </tr>
-                    <tr style={{ borderBottom: "1px solid #bdb9b9" }}>
+                    <tr>
                         <td style={{ textAlign: "center" }}>
+                            {
+                                props.logoId!==null ?
+                                    <Image rounded src={props.logo} width={75} height={75} />
+                                    : null
+                            }
+                        </td>
+                    </tr>
+                    <tr style={{ borderBottom: "1px solid #bdb9b9" }}>
+                        <td style={{ textAlign: "center", fontWeight: "bold", fontSize: "28px" }}>
                             KOT
                         </td>
                     </tr>
@@ -30,22 +42,18 @@ const KOT = (props) => {
                         <td style={{ textAlign: "center" }}>
                             <table style={{ width: "100%" }}>
                                 <thead style={{ borderBottom: "1px solid #bdb9b9" }}>
-                                    <th style={{ width: "10%", textAlign: "left" }}>QTY</th>
-                                    <th style={{ width: "50%", textAlign: "left" }}>Item</th>
-                                    <th style={{ width: "10%", textAlign: "left" }}>Dis(%)</th>
-                                    <th style={{ width: "30%", textAlign: "right" }}>Price(OMR)</th>
+                                    <th style={{ width: "85%", textAlign: "left" }}>Item</th>
+                                    <th style={{ width: "15%", textAlign: "left" }}>QTY</th>
                                 </thead>
                                 <tbody>
                                     {
                                         props.cartDataList.map((item, index) =>
                                             <>
-                                                <tr style={{ width: "100%"}}> 
-                                                    <td style={{ width: "10%", textAlign: "left" }}>{item.product_qty}</td>
-                                                    <td style={{ width: "50%", textAlign: "left" }}>{item.productName}</td>
-                                                    <td style={{ width: "10%", textAlign: "left" }}>{item.product_discount}</td>
-                                                    <td style={{ width: "30%", textAlign: "right" }}>{item.product_amount}</td>
+                                                <tr style={{ width: "100%" }}>
+                                                    <td style={{ width: "85%", textAlign: "left" }}>{item.productName}</td>
+                                                    <td style={{ width: "15%", textAlign: "left" }}>{item.product_qty}</td>
                                                 </tr>
-                                                <tr style={{ width: "100%", textAlign: "left" }}>
+                                                <tr>
                                                     <td style={{ width: "100%", textAlign: "left" }}>{item.remark}</td>
                                                 </tr>
                                             </>

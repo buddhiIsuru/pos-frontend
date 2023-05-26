@@ -1,0 +1,7 @@
+.footer-class{
+    width: 100%;
+    position: fixed;
+    height: 50px;
+    background-color: black;
+    bottom: 0;
+}

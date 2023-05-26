@@ -73,10 +73,12 @@ const PaymentModal = (props) => {
                 <Row>
                     <Col lg={4}>
                         <div className="order-summery-section">
-                            <PaymentSummeryItem label="Sub Total" value={props.subTotalAmount} />
-                            <PaymentSummeryItem label="Discount" value={props.discountAmount} />
-                            <PaymentSummeryItem label="Tax" value={props.taxAmount} />
-                            <PaymentSummeryItem label="Grand Total" value={props.grandTotalAmount} />
+                            <PaymentSummeryItem label="Total" value={parseFloat(props.totalAmount).toFixed(3)} />
+                            <PaymentSummeryItem label="Tax" value={parseFloat(props.taxAmount).toFixed(3)} />
+                            <PaymentSummeryItem label="Charges Amount" value={parseFloat(props.chargesAmount).toFixed(3)} />
+                            <PaymentSummeryItem label="Sub Total" value={parseFloat(props.subTotalAmount).toFixed(3)} />
+                            <PaymentSummeryItem label="Discount" value={parseFloat(props.discountAmount).toFixed(3)} />
+                            <PaymentSummeryItem label="Grand Total" value={parseFloat(props.grandTotalAmount).toFixed(3)} />
                             {/* <PaymentType changePaymentType={(data) => props.changePaymentType(data)} /> */}
                             {
                                 props.paymentType === "tm_done_cash" || props.paymentType === "talabath_cash" || props.paymentType === "cash" ?
@@ -85,14 +87,6 @@ const PaymentModal = (props) => {
                                             cashAmount={props.cashAmount}
                                             setCashAmount={(data) => props.setCashAmount(data)}
                                         />
-                                        {
-                                            props.cashAmount - props.grandTotalAmount > 0 ?
-                                                <BalanceSection
-                                                    cashAmount={props.cashAmount}
-                                                    grandTotalAmount={props.grandTotalAmount}
-                                                />
-                                                : null
-                                        }
                                     </>
                                     :
                                     null
@@ -102,7 +96,7 @@ const PaymentModal = (props) => {
                     </Col>
                     <Col lg={8}>
                         <Row>
-                            <div style={{ width: "50%",textAlign:"center" }}>
+                            <div style={{ width: "50%", textAlign: "center" }}>
                                 <div style={{ width: "100%" }}>
                                     <NumberPad onClickNumber={(data) => props.onClickNumberButton(data)} />
                                 </div>
@@ -120,13 +114,35 @@ const PaymentModal = (props) => {
                 </Row>
             </Modal.Body>
             <Modal.Footer style={{ background: "#252836", color: "white" }}>
+                {
+                    props.paymentType === "tm_done_cash" || props.paymentType === "talabath_cash" || props.paymentType === "cash" ?
+                        <>
+                            <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
+                                Balance : {parseFloat(props.cashAmount - props.grandTotalAmount<0?0:props.cashAmount - props.grandTotalAmount).toFixed(3)}
+                            </Button>
+                            <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
+                                |
+                            </Button>
+                            <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
+                                Paid : {parseFloat(!props.cashAmount?0:props.cashAmount).toFixed(3)}
+                            </Button>
+                            <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
+                                |
+                            </Button>
+                            <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
+                                Payable : {parseFloat(props.grandTotalAmount - props.cashAmount < 0 ? 0 : props.grandTotalAmount - props.cashAmount).toFixed(3)}
+                            </Button>
+                        </>
+                        :
+                        null
+                }
                 <Button variant="secondary" onClick={props.handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={props.onClickAddDraft}>
+                <Button variant="primary" disabled={props.isLoading} onClick={props.onClickAddDraft}>
                     Add Drft
                 </Button>
-                <Button variant="primary" onClick={props.onClickSave}>
+                <Button variant="primary" disabled={props.isLoading} onClick={props.onClickSave}>
                     Submit
                 </Button>
             </Modal.Footer>

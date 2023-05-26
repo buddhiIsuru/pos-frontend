@@ -7,14 +7,15 @@ import { BiUserPlus } from "@react-icons/all-files/bi/BiUserPlus";
 function OrderSummery(props) {
     return (
         <div className="order-summery-section">
-            <OrderSummeryItem label="Discount" value={props.discountAmount} />
-            <OrderSummeryItem label="Sub Total" value={props.subTotalAmount} />
+            <OrderSummeryItem label="Total" value={props.totalAmount} />
             <OrderSummeryItem label="Tax" value={props.taxAmount} />
             {
                 props.chargesAmount > 0 ?
-                    <OrderSummeryItem label="Charges" value={props.chargesAmount} />
-                    : null
+                <OrderSummeryItem label="Charges" value={props.chargesAmount} />
+                : null
             }
+            <OrderSummeryItem label="Sub Total" value={props.subTotalAmount} />
+            <OrderSummeryItem label="Discount" value={props.discountAmount} />
         </div>
     )
 }
@@ -73,6 +74,7 @@ const CartSection = (props) => {
                     <CartItem /> */}
                 </div>
                 <OrderSummery
+                    totalAmount={props.totalAmount}
                     taxAmount={props.taxAmount}
                     subTotalAmount={props.subTotalAmount}
                     discountAmount={props.discountAmount}
@@ -83,7 +85,7 @@ const CartSection = (props) => {
                     value={props.grandTotalAmount}
                 />
                 <div className="button-row">
-                    <Button className="button-kot" onClick={props.onClickKOT}>KOT</Button>
+                    <Button className="button-kot" disabled={props.cartDataList.length===0} onClick={props.onClickKOT}>KOT</Button>
                     <Button className="button-payment" disabled={props.paymentIsDissable} onClick={props.onClickPayment}>Payment</Button>
                 </div>
                 <div className="button-row">

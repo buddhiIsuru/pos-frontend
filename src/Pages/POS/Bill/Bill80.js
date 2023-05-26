@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment/moment";
 import { vatNo, vatPercentage } from "../../../constance/Constance";
+import { Image } from "react-bootstrap";
 
 const Bill80 = (props) => {
     const [printedDate, setPrinteddate] = useState(null);
@@ -14,6 +15,15 @@ const Bill80 = (props) => {
                     <tr>
                         <td style={{ textAlign: "center" }}>
                             {props.outletName}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style={{ textAlign: "center" }}>
+                            {
+                                props.logoId !== null ?
+                                    <Image rounded src={props.logo} width={75} height={75} />
+                                    : null
+                            }
                         </td>
                     </tr>
                     <tr style={{ borderBottom: "1px solid #bdb9b9" }}>
@@ -68,8 +78,8 @@ const Bill80 = (props) => {
                                             <tr style={{ borderBottom: "1px solid #bdb9b9" }}>
                                                 <td style={{ width: "10%", textAlign: "left" }}>{item.product_qty}</td>
                                                 <td style={{ width: "50%", textAlign: "left" }}>{item.productName}</td>
-                                                <td style={{ width: "10%", textAlign: "left" }}>{item.product_discount}</td>
-                                                <td style={{ width: "30%", textAlign: "right" }}>{item.product_amount}</td>
+                                                <td style={{ width: "10%", textAlign: "left" }}>{parseFloat(item.product_discount).toFixed(3)}</td>
+                                                <td style={{ width: "30%", textAlign: "right" }}>{parseFloat(item.product_amount).toFixed(3)}</td>
                                             </tr>
                                         )
                                     }
@@ -82,7 +92,7 @@ const Bill80 = (props) => {
                         <td style={{ textAlign: "center" }}>
                             <table style={{ width: "100%" }}>
                                 <tr>
-                                    <td style={{ width: "80%", textAlign: "right" }}>VAT {vatNo} ({parseFloat(vatPercentage)}%) </td>
+                                    <td style={{ width: "80%", textAlign: "right" }}>VAT {vatNo} ({parseFloat(vatPercentage).toFixed(3)}%) </td>
                                     <td style={{ width: "20%", textAlign: "right" }}>{props.tax}</td>
                                 </tr>
                                 {

@@ -5,6 +5,7 @@ import { HiHome } from "@react-icons/all-files/hi/HiHome";
 import { HiUserCircle } from "@react-icons/all-files/hi/HiUserCircle";
 import { AiFillSetting } from "@react-icons/all-files/ai/AiFillSetting";
 import { AiOutlineLogout } from "@react-icons/all-files/ai/AiOutlineLogout";
+import { FaFileInvoice } from "@react-icons/all-files/fa/FaFileInvoice";
 import { MdEmail } from "@react-icons/all-files/md/MdEmail";
 import { DiOpenshift } from "@react-icons/all-files/di/DiOpenshift";
 
@@ -34,9 +35,11 @@ const Sidebar = (props) => {
                     className="sidebar-button sidebar-button-unselect"
                     onClick={props.setInvoicetListVisibility}
                 >
-                    <AiFillSetting />
+                    <FaFileInvoice />
                 </Button>
-                <Button className="sidebar-button sidebar-button-unselect">
+                <Button className="sidebar-button sidebar-button-unselect"
+                    onClick={props.logOut}
+                >
                     <AiOutlineLogout />
                 </Button>
             </div>
