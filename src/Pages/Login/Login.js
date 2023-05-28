@@ -8,14 +8,15 @@ import { localStorageSetItem } from "../../constance/LocalStorageManagement";
 const Login = () => {
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigateTo = useNavigate();
 
     const onCLickLogin = async () => {
+        setIsLoading(true);
         const data = {
             userName: userName,
             password: password,
         }
-
         // navigateTo("/user");
         const response = await login(data);
         console.log(response);
@@ -25,10 +26,11 @@ const Login = () => {
                 localStorageSetItem("role", response.data.roleModal);
                 localStorageSetItem("shiftId", response.data.shiftId);
                 navigateTo("/user");
-            }else{
+            } else {
                 alert("Invalid Credencials");
             }
         }
+        setIsLoading(false);
 
     }
 
@@ -57,7 +59,16 @@ const Login = () => {
                                 placeholder="Password"
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <button disabled={!userName && !password} type="submit" onClick={onCLickLogin}>Login</button>
+                            <button
+                                disabled={!userName && !password && !isLoading}
+                                type="submit" onClick={onCLickLogin}>
+                                {
+                                    isLoading ?
+                                        <div class="spinner-border text-light" role="status" />
+                                        :
+                                        <span class="sr-only">Login</span>
+                                }
+                            </button>
                         </div>
                     </Col>
                 </Row>

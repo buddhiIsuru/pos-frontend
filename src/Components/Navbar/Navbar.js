@@ -11,14 +11,25 @@ import { localStorageGetItem } from "../../constance/LocalStorageManagement";
 
 const MainNavbar = (props) => {
 
-    const[companyName,setCompanyName]=useState("");
+    const [companyName, setCompanyName] = useState("");
+    const [time, setTime] = useState(new Date());
 
-    useEffect(()=>{
+    useEffect(() => {
         setCompanyName(localStorageGetItem("outlet").outletName);
-    },[])
-    
+    }, [])
+
+    useEffect(() => {
+        // Update the time every second using setTimeout
+        const timer = setTimeout(() => {
+            setTime(new Date());
+        }, 1000);
+
+        // Cleanup the timer when the component unmounts
+        return () => clearTimeout(timer);
+    }, [time]);
+
     return (
-        <Navbar className="position-fixed w-100" style={{ background: "#1f1d2b", color: "white",zIndex:"10000" }} expand="lg">
+        <Navbar className="position-fixed w-100" style={{ background: "#1f1d2b", color: "white", zIndex: "10000" }} expand="lg">
             <Container fluid>
                 <Navbar.Brand href="#" style={{ color: "white", fontSize: '20px' }}>
                     {companyName} <br />
@@ -30,10 +41,10 @@ const MainNavbar = (props) => {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     >
-                        <Nav.Link href="#action1"><span className="date-span">{moment(new Date()).format('MMMM Do YYYY')}</span></Nav.Link>
-                        {/* <Nav.Link href="#action2">{moment().format('MMMM Do YYYY, h:mm:ss a')}</Nav.Link> */}
+                        <div className="date-div"><span className="date-span">{moment(new Date()).format('MMMM Do YYYY')}</span></div>
+                        <div className="clock-div">{time.toLocaleTimeString()}</div>
                         {/* <NavDropdown title="Link" id="navbarScrollingDropdown"> */}
-                            {/* <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                        {/* <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action4">
                                 Another action
                             </NavDropdown.Item>

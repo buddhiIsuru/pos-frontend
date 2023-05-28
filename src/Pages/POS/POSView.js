@@ -355,7 +355,7 @@ const POSView = () => {
 
     const onCLickKOT = () => {
         setIsLoading(true);
-        const timer = setTimeout(() => { handlePrint(); setIsLoading(false); }, 1000);
+        setTimeout(() => { handlePrint();setIsLoading(false);}, 1000);
     }
     const onDraft = () => {
         setIsLoading(true);

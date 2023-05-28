@@ -118,13 +118,13 @@ const PaymentModal = (props) => {
                     props.paymentType === "tm_done_cash" || props.paymentType === "talabath_cash" || props.paymentType === "cash" ?
                         <>
                             <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
-                                Balance : {parseFloat(props.cashAmount - props.grandTotalAmount<0?0:props.cashAmount - props.grandTotalAmount).toFixed(3)}
+                                Balance : {parseFloat(props.cashAmount - props.grandTotalAmount < 0 ? 0 : props.cashAmount - props.grandTotalAmount).toFixed(3)}
                             </Button>
                             <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
                                 |
                             </Button>
                             <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
-                                Paid : {parseFloat(!props.cashAmount?0:props.cashAmount).toFixed(3)}
+                                Paid : {parseFloat(!props.cashAmount ? 0 : props.cashAmount).toFixed(3)}
                             </Button>
                             <Button variant="transparent" style={{ fontWeight: "bold", color: "white" }}>
                                 |
@@ -140,10 +140,20 @@ const PaymentModal = (props) => {
                     Close
                 </Button>
                 <Button variant="primary" disabled={props.isLoading} onClick={props.onClickAddDraft}>
-                    Add Drft
+                    {
+                        props.isLoading ?
+                            <div class="spinner-border text-light" role="status" />
+                            :
+                            <span class="sr-only">Add Draft</span>
+                    }
                 </Button>
-                <Button variant="primary" disabled={props.isLoading} onClick={props.onClickSave}>
-                    Submit
+                <Button variant="primary" onClick={props.onClickSave}>
+                    {
+                        props.isLoading ?
+                            <div class="spinner-border text-light" role="status" />
+                            :
+                            <span class="sr-only">Submit</span>
+                    }
                 </Button>
             </Modal.Footer>
         </Modal>

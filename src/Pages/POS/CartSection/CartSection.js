@@ -11,8 +11,8 @@ function OrderSummery(props) {
             <OrderSummeryItem label="Tax" value={props.taxAmount} />
             {
                 props.chargesAmount > 0 ?
-                <OrderSummeryItem label="Charges" value={props.chargesAmount} />
-                : null
+                    <OrderSummeryItem label="Charges" value={props.chargesAmount} />
+                    : null
             }
             <OrderSummeryItem label="Sub Total" value={props.subTotalAmount} />
             <OrderSummeryItem label="Discount" value={props.discountAmount} />
@@ -43,10 +43,10 @@ const CartSection = (props) => {
             <p className="order-id">Order Number : # {props.orderId}</p>
             <div className="tb-header">
                 <div className="tb-header-item">
-                    <input placeholder="Customer Vehicle No" value={props.customerVehicleNo} onChange={(e)=>props.setCustomerVehicleNo(e.target.value)} className="customer-input" />
+                    <input placeholder="Customer Vehicle No" value={props.customerVehicleNo} onChange={(e) => props.setCustomerVehicleNo(e.target.value)} className="customer-input" />
                 </div>
                 <div className="tb-header-price">
-                    <Button onClick={props.onClickCustomer} style={{ background: "#ea7c69" }} className="customer-button"><BiUserPlus/></Button>
+                    <Button onClick={props.onClickCustomer} style={{ background: "#ea7c69" }} className="customer-button"><BiUserPlus /></Button>
                 </div>
                 {/* <div className="tb-header-qty">QTY</div> */}
             </div>
@@ -85,7 +85,14 @@ const CartSection = (props) => {
                     value={props.grandTotalAmount}
                 />
                 <div className="button-row">
-                    <Button className="button-kot" disabled={props.cartDataList.length===0} onClick={props.onClickKOT}>KOT</Button>
+                    <Button className="button-kot" disabled={props.cartDataList.length === 0} onClick={props.onClickKOT}>
+                        {
+                            props.isLoading ?
+                                <div class="spinner-border text-light" role="status" />
+                                :
+                                <span class="sr-only">KOT</span>
+                        }
+                    </Button>
                     <Button className="button-payment" disabled={props.paymentIsDissable} onClick={props.onClickPayment}>Payment</Button>
                 </div>
                 <div className="button-row">
