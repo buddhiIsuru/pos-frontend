@@ -8,6 +8,9 @@ import { AiOutlineMinus } from "@react-icons/all-files/ai/AiOutlineMinus";
 import { imageBaseUrl } from "../../../../constance/baseUrl";
 
 const CartItem = (props) => {
+    const onChenageRemark = (index,data) => {
+        props.cartDataList[index].remark=data;
+    }
     return (
         <div className="cart-card">
             <div className="item-desc-section">
@@ -32,7 +35,7 @@ const CartItem = (props) => {
 
             </div>
             <div className="remark-section">
-                <input onChange={(e) => props.onChenageRemark(e.target.value)} value={props.remark} />
+                <input onChange={(e) => props.onChenageRemark(e.target.value)} value={props.dataObj.remark} />
                 <div className="qty-agesment-section">
                     <Button onClick={() => { props.onMinusClick() }}>
                         <AiOutlineMinus />

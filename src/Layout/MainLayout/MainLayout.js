@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import MainNavbar from "../../Components/Navbar/Navbar";
 import { Row } from "react-bootstrap";
 import Sidebar from "../../Components/Sidebar/Sidebar";
@@ -7,19 +7,26 @@ import ShiftModal from "../../Pages/ShiftModal/ShiftModal";
 import ShiftListModal from "../../Pages/ShiftListModal/ShiftListModal";
 import { getOutletShiftList } from "../../Service/authService";
 import { localStorageGetItem } from "../../constance/LocalStorageManagement";
-import { getInvoiceOutlet } from "../../Service/invoiceService";
+import { cancelInvoiceOutlet, getInvoice, getInvoiceOutlet } from "../../Service/invoiceService";
 import InvoiceListModal from "../../Pages/InvoiceListModal/InvoiceListModal";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../Pages/POS/Footer/Footer";
+import InvoiceModal from "../../Pages/InvoiceModal/InvoiceModal";
 
 const MainLayout = () => {
     const [shiftModal, setShiftModal] = useState(false);
     const [shiftListModal, setShiftListModal] = useState(false);
     const [invoiceListModal, setInvoiceListModal] = useState(false);
+    const [invoiceModal, setInvoiceModal] = useState(false);
     const navigateTo = useNavigate();
+
+    const childRef = useRef();
 
     const [dataList, setDataList] = useState([]);
     const [invoiceList, setInvoiceList] = useState([]);
+    const [invoice, setInvoice] = useState(null);
+    const [invoiceItemList, setInvoiceItemList] = useState([]);
 
     const handle = useFullScreenHandle();
 
@@ -37,10 +44,28 @@ const MainLayout = () => {
             setInvoiceList(response.data);
         }
     }
+    const getInvoiceData = async (id) => {
+        setInvoiceModal(true);
+        const response = await getInvoice(id);
+        if (response.status === 200) {
+            console.log(response.data);
+            setInvoice(response.data);
+            setInvoiceItemList(response.data.invoiceDetailsDetailModals);
+        }
+    }
     const logoutUser = async () => {
         localStorage.clear();
         navigateTo("/");
     }
+
+    const cancelInvoice = async (id) => {
+        const response = await cancelInvoiceOutlet(id);
+        if (response.status === 200) {
+            alert("Cancel Success");
+            setInvoiceModal(false);
+        }
+    }
+
 
     return (
         <>
@@ -54,7 +79,9 @@ const MainLayout = () => {
                         setShiftListVisibility={() => { setShiftListModal(true); getOutletShiftSet() }}
                         setInvoicetListVisibility={() => { setInvoiceListModal(true); getOutletInvoiceList() }}
                     />
-                    <ContentSection />
+                    <ContentSection
+                        ref={childRef}
+                    />
                 </Row>
                 <ShiftModal
                     shiftModalVisibility={shiftModal}
@@ -71,6 +98,21 @@ const MainLayout = () => {
                     dataSet={invoiceList}
                     handleClose={() => setInvoiceListModal(false)}
                     cancelSuccess={() => { setInvoiceListModal(false); getOutletInvoiceList() }}
+                    selectInvoice={(id) => { setInvoiceListModal(false); getInvoiceData(id) }}
+                />
+                <InvoiceModal
+                    show={invoiceModal}
+                    data={invoice}
+                    dataList={invoiceItemList}
+                    invoiceCancel={(id) => cancelInvoice(id)}
+                    handleClose={() => setInvoiceModal(false)}
+                />
+                <Footer
+                    onClickDraft={() => childRef.current.setDraftModalVisibility()}
+                    setChargesModal={() => childRef.current.setChargesModalVisibility()}
+                    setDiscountModal={() => childRef.current.setDiscountModalVisibility()}
+                    addDraft={() => childRef.current.onClickAddDraft()}
+                    clearCart={() => childRef.current.onClickClearCart()}
                 />
             </FullScreen>
         </>

@@ -61,7 +61,7 @@ const CartSection = (props) => {
                         props.cartDataList.map((item, index) =>
                             <CartItem
                                 dataObj={item}
-                                remarkValue={props.remarkValue}
+                                // remarkValue={props.remarkValue}
                                 onRemoveClick={() => props.onRemoveClick(index)}
                                 onPlusClick={() => props.onPlusClick(index)}
                                 onMinusClick={() => props.onMinusClick(index)}
@@ -95,11 +95,11 @@ const CartSection = (props) => {
                     </Button>
                     <Button className="button-payment" disabled={props.paymentIsDissable} onClick={props.onClickPayment}>Payment</Button>
                 </div>
-                <div className="button-row">
+                {/* <div className="button-row">
                     <Button className="button-discount" onClick={props.onClickDraft}>Draft List</Button>
                     <Button className="button-discount" onClick={props.setDiscountModal}>Discount</Button>
                     <Button className="button-discount" onClick={props.setChargesModal}>Charges</Button>
-                </div>
+                </div> */}
             </div>
         </>
     )

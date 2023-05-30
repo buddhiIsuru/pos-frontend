@@ -139,14 +139,14 @@ const PaymentModal = (props) => {
                 <Button variant="secondary" onClick={props.handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" disabled={props.isLoading} onClick={props.onClickAddDraft}>
+                {/* <Button variant="primary" disabled={props.isLoading} onClick={props.onClickAddDraft}>
                     {
                         props.isLoading ?
                             <div class="spinner-border text-light" role="status" />
                             :
                             <span class="sr-only">Add Draft</span>
                     }
-                </Button>
+                </Button> */}
                 <Button variant="primary" onClick={props.onClickSave}>
                     {
                         props.isLoading ?

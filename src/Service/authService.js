@@ -1,5 +1,5 @@
+import { baseUrl } from "../constance/baseUrl";
 import { httpGET, httpPOST } from "./intercepter";
-import { baseUrl } from './baseUrl';
 
 export const login = (data) => {
   const url = baseUrl + "/api/v1/auth/login";

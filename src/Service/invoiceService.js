@@ -25,6 +25,12 @@ export const getShiftInvoiceReport = (id) => {
 };
 export const getInvoiceOutlet = (id) => {
     const url = baseUrl + "/invoice/get-invoice-outlet/"+id;
+    console.log(url);
+    return httpGET(url);
+};
+export const getInvoice = (id) => {
+    const url = baseUrl + "/invoice/get-outlet-invoice-data/"+id;
+    console.log(url);
     return httpGET(url);
 };
 export const cancelInvoiceOutlet = (id) => {

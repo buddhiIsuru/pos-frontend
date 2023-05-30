@@ -8,14 +8,6 @@ import { cancelInvoiceOutlet } from '../../Service/invoiceService';
 
 const InvoiceListModal = (props) => {
 
-    const cancelInvoice = async (id) => {
-        const response = await cancelInvoiceOutlet(id);
-        if (response.status === 200) {
-            props.cancelSuccess();
-            alert("Cancel Success");
-        }
-    }
-
     return (
         <Modal size="lg" show={props.show} onHide={props.handleClose} style={{ zIndex: 100000 }}>
             <Modal.Header closeButton style={{ background: "#252836", color: "white" }}>
@@ -44,7 +36,7 @@ const InvoiceListModal = (props) => {
                                     <td>{removeReplaceCharactors(item.payment_method)}</td>
                                     <td>
                                         {
-                                            <Button variant="warning" className='' onClick={() => cancelInvoice(item.id)}>Cancel</Button>
+                                            <Button variant="primary" className='' onClick={() => props.selectInvoice(item.id)}>View</Button>
                                         }
                                     </td>
                                 </tr>

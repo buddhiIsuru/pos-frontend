@@ -4,4 +4,35 @@
     height: 50px;
     background-color: black;
     bottom: 0;
+    display: flex;
+    padding: 5px;
+}
+.footer-left{
+    width: 30%;
+    text-align: left;
+}
+.footer-midle{
+    width: 32%;
+    text-align: center;
+}
+.footer-right{
+    width: 38%;
+    text-align: left;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.button-discount {
+    width: 49%;
+    background: #252836;
+    border: 1px solid #ea7c69;
+    color: white;
+    border: 1px solid #8e939a;
+}
+.button-left-div {
+    width: auto;
+    background: #252836;
+    border: 1px solid #ea7c69;
+    color: white;
+    border: 1px solid #8e939a;
 }
