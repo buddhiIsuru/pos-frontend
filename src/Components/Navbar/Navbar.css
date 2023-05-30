@@ -13,6 +13,8 @@
 .nav-button{
     margin: 0 5px;
     justify-content: space-around;
+    background: #1f1d2b;
+    border: 2px solid #ea7c69;
 }
 .date-div{
     margin: 0 25px;

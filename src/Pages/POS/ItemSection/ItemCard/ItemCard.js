@@ -6,7 +6,7 @@ import { imageBaseUrl } from "../../../../constance/baseUrl";
 
 const ItemCard = (props) => {
     return (
-        <Col lg={3} xs={12} className="item-card" onClick={()=>props.onClick()}>
+        <Col lg={4} xl={3} sm={5} xs={12} className="item-card" onClick={()=>props.onClick()}>
             {props.itemObj.discount ?
                 <Badge bg="danger">{props.itemObj.discount}%</Badge>
                 : 

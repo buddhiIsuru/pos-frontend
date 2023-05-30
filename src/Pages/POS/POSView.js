@@ -439,7 +439,7 @@ const POSView = forwardRef((props, ref) => {
                 />
             </div>
             <Row>
-                <Col lg={7}>
+                <Col lg={7} sm={11}>
                     {
                         isLoadingCategory ?
                             <div style={{ textAlign: "center", marginTop: "50px" }}><Spinner animation="border" variant="primary" /></div>
@@ -456,7 +456,7 @@ const POSView = forwardRef((props, ref) => {
                         onSelectProductClick={(data) => selectProductClick(data)}
                     />
                 </Col>
-                <Col lg={5} style={{ background: "#1f1d2b",height: "100%", marginBottom: "50px", marginTop: "-20px" }}>
+                <Col lg={5} sm={11} style={{ background: "#1f1d2b",height: "100%", marginBottom: "50px", marginTop: "-20px" }}>
                     <CartSection
                         totalAmount={total}
                         taxAmount={tax}

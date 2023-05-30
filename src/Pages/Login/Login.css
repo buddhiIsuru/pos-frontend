@@ -1,20 +1,40 @@
 .login-container{
-    margin: 35% 5%;
+    margin: 12vh 0;
+    border: 2px solid white;
+    height: 75vh;
+    padding: 15% 20px;
+    border-radius: 10px;
 }
-.login-container h4{
+.circle {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    background-color: gold;
+    border-radius: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    z-index: 10;
+  }
+.login-container h2{
     text-align: center;
-    color: #ea7c69;
+    color: white;
+    margin-top: 10%;
+    margin-bottom: 20%;
 }
 
 .login-container input{
-    border:1px solid #ea7c69;
-    background-color: #1f1d2b;
+    border-bottom:1px solid #ea7c69;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
     margin: 10px 0;
     color: white;
     padding: 7px 10px;
     outline: #ea7c69;
-    border-radius: 5px;
+    /* border-radius: 50px; */
     width: 100%;
+    margin: 8% 0
 }
 .login-container input::selection{
     border:1px solid #ea7c69;
@@ -29,7 +49,8 @@
     color: white;
     padding: 5px 10px;
     outline: #ea7c69;
-    border-radius: 5px;
+    border-radius: 50px;
     font-size: 20px;
     width: 100%;
+    margin-top: 15%;
 }

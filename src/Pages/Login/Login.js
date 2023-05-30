@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import './Login.css'
 import { login } from "../../Service/authService";
 import { useNavigate } from "react-router-dom";
 import { localStorageSetItem } from "../../constance/LocalStorageManagement";
+import Typewriter from "../../constance/Typewriter";
 
 const Login = () => {
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigateTo = useNavigate();
+
+    const usernameRef = useRef(null);
+    const passwordRef = useRef(null);
 
     const onCLickLogin = async () => {
         setIsLoading(true);
@@ -34,22 +38,35 @@ const Login = () => {
 
     }
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            if (event.target === usernameRef.current) {
+                passwordRef.current.focus();
+            } else if (event.target === passwordRef.current) {
+                onCLickLogin();
+            }
+        }
+    };
+
 
     return (
         <>
             <Container>
                 <Row>
-                    <Col lg={8}>
-
-                    </Col>
+                    <Col lg={4}></Col>
                     <Col lg={4} >
                         <div className="login-container">
-                            <h4>Login</h4>
+                            <h2>
+                                <Typewriter text="Welcome Back!" />
+                            </h2>
                             <input
                                 required
                                 autocomplete="new-username"
                                 value={userName}
                                 placeholder="User Name"
+                                ref={usernameRef}
+                                onKeyDown={handleKeyDown}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                             <input
@@ -57,6 +74,8 @@ const Login = () => {
                                 type="password"
                                 value={password}
                                 placeholder="Password"
+                                ref={passwordRef}
+                                onKeyDown={handleKeyDown}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <button
@@ -71,6 +90,7 @@ const Login = () => {
                             </button>
                         </div>
                     </Col>
+                    <Col lg={4}></Col>
                 </Row>
             </Container>
         </>
