@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import CategoryList from "./CategoryList/CategoryList";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import ItemSection from "./ItemSection/ItemSection";
 import CartSection from "./CartSection/CartSection";
 import { getCategoryOutletVice } from "../../Service/categoryService";
@@ -45,6 +45,8 @@ const POSView = forwardRef((props, ref) => {
     const [discountModal, setDiscountModal] = useState(false);
     const [customerModal, setCustomerModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingCategory, setIsLoadingCategory] = useState(false);
+    const [isLoadingProduct, setIsLoadingProduct] = useState(false);
 
     const [invoiceId, setInvoiceID] = useState(null);
     const [outletId, setOutletID] = useState(null);
@@ -77,11 +79,13 @@ const POSView = forwardRef((props, ref) => {
     }));
 
     const getAllCategory = async (id) => {
+        setIsLoadingCategory(true);
         const response = await getCategoryOutletVice(id);
         if (response.status === 200) {
             setcategoryList(response.data);
             selectCategoryClick(response.data[0]);
         }
+        setIsLoadingCategory(false);
     }
 
     const getInvoiceReport = async (id) => {
@@ -107,10 +111,12 @@ const POSView = forwardRef((props, ref) => {
 
     const selectCategoryClick = async (data) => {
         setSelectCategory(data);
+        setIsLoadingProduct(true);
         const response = await getProductCategoryVice(data.id);
         if (response.status === 200) {
             setProductList(response.data);
         }
+        setIsLoadingProduct(false);
     }
 
     const selectProductClick = async (data) => {
@@ -434,23 +440,28 @@ const POSView = forwardRef((props, ref) => {
             </div>
             <Row>
                 <Col lg={7}>
-                    <CategoryList
-                        dataList={categoryList}
-                        selectCat={selectCategory}
-                        onSelectCategory={(data) => selectCategoryClick(data)}
-                    />
+                    {
+                        isLoadingCategory ?
+                            <div style={{ textAlign: "center", marginTop: "50px" }}><Spinner animation="border" variant="primary" /></div>
+                            :
+                            <CategoryList
+                                dataList={categoryList}
+                                selectCat={selectCategory}
+                                onSelectCategory={(data) => selectCategoryClick(data)}
+                            />
+                    }
                     <ItemSection
+                        isLoading={isLoadingProduct}
                         dataList={propductList}
                         onSelectProductClick={(data) => selectProductClick(data)}
                     />
                 </Col>
-                <Col lg={5} style={{ background: "#1f1d2b", height: "105vh", marginTop: "-20px" }}>
+                <Col lg={5} style={{ background: "#1f1d2b",height: "100%", marginBottom: "50px", marginTop: "-20px" }}>
                     <CartSection
                         totalAmount={total}
                         taxAmount={tax}
                         orderId={orderId}
                         orderType={orderType}
-                        // remarkValue={orderId}
                         cartDataList={cartList}
                         discountAmount={discount}
                         subTotalAmount={subTotal}
@@ -463,12 +474,9 @@ const POSView = forwardRef((props, ref) => {
                         onPlusClick={(index) => plusCartItem(index)}
                         onClickCustomer={() => setCustomerModal(true)}
                         onClickPayment={() => { setPrintLayout("BILL"); setPaymentModal(true) }}
-                        // setChargesModal={() => setChargesModal(true)}
                         setOrderType={(value) => setOrderType(value)}
                         onMinusClick={(index) => minusCartItem(index)}
-                        // setDiscountModal={() => setDiscountModal(true)}
                         setCustomerVehicleNo={(index) => setCustomerVehicleNo(index)}
-                        // onClickDraft={() => { getAllDraftList(); setDraftModal(true) }}
                         onClickKOT={() => { setPrintLayout("KOT"); onCLickKOT(); }}
                         onRemoveClick={(index) => removeCartItem(index)}
                         onChenageRemark={(index, value) => setRemark(index, value)}

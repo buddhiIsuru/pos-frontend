@@ -61,7 +61,6 @@ const CartSection = (props) => {
                         props.cartDataList.map((item, index) =>
                             <CartItem
                                 dataObj={item}
-                                // remarkValue={props.remarkValue}
                                 onRemoveClick={() => props.onRemoveClick(index)}
                                 onPlusClick={() => props.onPlusClick(index)}
                                 onMinusClick={() => props.onMinusClick(index)}
@@ -69,38 +68,32 @@ const CartSection = (props) => {
                             />
                         )
                     }
-                    {/* <CartItem />
-                    <CartItem />
-                    <CartItem /> */}
                 </div>
-                <OrderSummery
-                    totalAmount={props.totalAmount}
-                    taxAmount={props.taxAmount}
-                    subTotalAmount={props.subTotalAmount}
-                    discountAmount={props.discountAmount}
-                    chargesAmount={props.chargesAmount}
-                />
-                <OrderGrandTotal
-                    label="Grand Total"
-                    value={props.grandTotalAmount}
-                />
-                <div className="button-row">
-                    <Button className="button-kot" disabled={props.cartDataList.length === 0} onClick={props.onClickKOT}>
-                        {
-                            props.isLoading ?
-                                <div class="spinner-border text-light" role="status" />
-                                :
-                                <span class="sr-only">KOT</span>
-                        }
-                    </Button>
-                    <Button className="button-payment" disabled={props.paymentIsDissable} onClick={props.onClickPayment}>Payment</Button>
-                </div>
-                {/* <div className="button-row">
-                    <Button className="button-discount" onClick={props.onClickDraft}>Draft List</Button>
-                    <Button className="button-discount" onClick={props.setDiscountModal}>Discount</Button>
-                    <Button className="button-discount" onClick={props.setChargesModal}>Charges</Button>
-                </div> */}
             </div>
+            <div className="order-summery-section">
+                    <OrderSummery
+                        totalAmount={props.totalAmount}
+                        taxAmount={props.taxAmount}
+                        subTotalAmount={props.subTotalAmount}
+                        discountAmount={props.discountAmount}
+                        chargesAmount={props.chargesAmount}
+                    />
+                    <OrderGrandTotal
+                        label="Grand Total"
+                        value={props.grandTotalAmount}
+                    />
+                    <div className="button-row">
+                        <Button className="button-kot" disabled={props.cartDataList.length === 0} onClick={props.onClickKOT}>
+                            {
+                                props.isLoading ?
+                                    <div class="spinner-border text-light" role="status" />
+                                    :
+                                    <span class="sr-only">KOT</span>
+                            }
+                        </Button>
+                        <Button className="button-payment" disabled={props.paymentIsDissable} onClick={props.onClickPayment}>Payment</Button>
+                    </div>
+                </div>
         </>
     )
 }
