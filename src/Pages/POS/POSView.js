@@ -174,7 +174,7 @@ const POSView = forwardRef((props, ref) => {
             }
         }
 
-        grandTotal = amount + tax + chargesAmount - total_discount;
+        grandTotal = amount + tax + chargesAmount;
         mainDiscount = grandTotal * mainDiscount / 100;
         grandTotal = grandTotal - mainDiscount;
         setTotal(parseFloat(amount).toFixed(3));
