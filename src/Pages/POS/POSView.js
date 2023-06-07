@@ -187,12 +187,13 @@ const POSView = forwardRef((props, ref) => {
     }
 
     const calculateCharges = (chargesSet) => {
+        console.log(chargesSet);
         let chargeAmount = 0;
         for (let i = 0; i < chargesSet.length; i++) {
             chargeAmount = chargeAmount + parseFloat(chargesSet[i].chargesAmount);
         }
         setChargesAmount(chargeAmount);
-        setGrandTotal(subTotal + tax + chargeAmount - discount);
+        calculateCartPricedata(cartList);
     }
 
     const removeCartItem = (index) => {
@@ -320,6 +321,7 @@ const POSView = forwardRef((props, ref) => {
         setInvoiceID(null);
         setCustomerID(null);
         setPrintLayout("BILL");
+        getLatestInvoice(outletId);
     }
 
     const onClickNumberPadButton = (value) => {

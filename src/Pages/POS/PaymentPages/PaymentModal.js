@@ -106,7 +106,7 @@ const PaymentModal = (props) => {
                                 <Button className="number-button w-100" style={{ height: "40px", background: props.paymentType === "tm_done_cash" ? "#ea7c69" : "#1f1d2b" }} onClick={() => props.changePaymentType("tm_done_cash")}>TM Done Cash</Button>
                                 <Button className="number-button w-100" style={{ height: "40px", background: props.paymentType === "talabath_card" ? "#ea7c69" : "#1f1d2b" }} onClick={() => props.changePaymentType("talabath_card")}>Talabath Card</Button>
                                 <Button className="number-button w-100" style={{ height: "40px", background: props.paymentType === "talabath_cash" ? "#ea7c69" : "#1f1d2b" }} onClick={() => props.changePaymentType("talabath_cash")}>Talabath Cash</Button>
-                                <Button className="number-button w-100" style={{ height: "40px", background: props.paymentType === "cash" ? "#ea7c69" : "#1f1d2b" }} onClick={() => props.changePaymentType("cash")}>card</Button>
+                                <Button className="number-button w-100" style={{ height: "40px", background: props.paymentType === "cash" ? "#ea7c69" : "#1f1d2b" }} onClick={() => props.changePaymentType("cash")}>Cash</Button>
                                 <Button className="number-button w-100" style={{ height: "40px", background: props.paymentType === "visa" ? "#ea7c69" : "#1f1d2b" }} onClick={() => props.changePaymentType("visa")}>Visa</Button>
                             </div>
                         </Row>
