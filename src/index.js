@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './Pages/Login/Login';
 import MainLayout from './Layout/MainLayout/MainLayout';
 
@@ -26,11 +26,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <RouterProvider router={router} />
   <React.StrictMode>
-    <HashRouter>
+    <BrowserRouter>
     {/* <BrowserRouter> */}
       <App />
     {/* </BrowserRouter> */}
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

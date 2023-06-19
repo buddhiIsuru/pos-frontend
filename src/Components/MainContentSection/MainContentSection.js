@@ -7,7 +7,7 @@ const style = {
     // left: "1%",
 }
 
-const ContentSection = forwardRef((props, ref) => {
+const MainContentSection = forwardRef((props, ref) => {
     // const childMethod = () => {
     //     console.log('Child method 2 called');
     //     // Perform any actions for child method 2
@@ -23,4 +23,4 @@ const ContentSection = forwardRef((props, ref) => {
     )
 })
 
-export default ContentSection;
+export default MainContentSection;

@@ -50,6 +50,7 @@ const POSView = forwardRef((props, ref) => {
 
     const [invoiceId, setInvoiceID] = useState(null);
     const [outletId, setOutletID] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [outletName, setOutletName] = useState(null);
     const [logoId, setLogoId] = useState(null);
     const [customerID, setCustomerID] = useState(null);
@@ -64,6 +65,7 @@ const POSView = forwardRef((props, ref) => {
     useEffect(() => {
         setOutletID(localStorageGetItem("outlet").id);
         setOutletName(localStorageGetItem("outlet").outletName);
+        setUserId(localStorageGetItem("userId"));
         setLogoId(localStorageGetItem("outlet").logoId);
         getAllCategory(localStorageGetItem("outlet").id);
         getInvoiceReport(1);
@@ -275,6 +277,7 @@ const POSView = forwardRef((props, ref) => {
             invoiceId: orderId,
             expensesList: chargesSet,
             outletId: outletId,
+            userId: userId,
             customerId: customerID,
         }
         const response = await saveInvoice(data);

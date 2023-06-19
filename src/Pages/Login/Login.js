@@ -29,8 +29,10 @@ const Login = () => {
             if (response.data.outletModal && response.data.roleModal) {
                 localStorageSetItem("outlet", response.data.outletModal);
                 localStorageSetItem("role", response.data.roleModal);
+                localStorageSetItem("userId", response.data.userId);
+                localStorageSetItem("username", response.data.username);
                 localStorageSetItem("shiftId", response.data.shiftId);
-                navigateTo("/user");
+                navigateTo("/main/dashboard");
             } else {
                 alert("Invalid Credencials");
             }

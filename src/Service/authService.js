@@ -19,6 +19,18 @@ export const closeStore = (id) => {
   const url = baseUrl + "/api/v1/auth/close-store/"+id;
   return httpGET(url);
 };
+export const shiftStart = (data) => {
+  const url = baseUrl + "/api/user-shift/start-shift";
+  return httpPOST(url,data);
+};
+export const shiftCheck = (id) => {
+  const url = baseUrl + "/api/user-shift/check-shift/"+id;
+  return httpGET(url);
+};
+export const shiftClose = (data) => {
+  const url = baseUrl + "/api/user-shift/close-shift";
+  return httpPOST(url,data);
+};
 
 export const getUserRole = () => {
   const url = baseUrl + "/api/v1/auth/get-all-role";

@@ -11,10 +11,13 @@ const Footer = (props) => {
                 <Button className="button-left-div" onClick={props.onClickDraft}>Draft Invoice List</Button>
             </Col>
 
-            <Col lg={4}></Col>
+            <Col lg={4} sm={6}>
+                {/* <Button className="button-discount" onClick={props.setDiscountModal} >Discount</Button>{" "}
+                <Button className="button-discount" onClick={props.setChargesModal} >Charges</Button> */}
+            </Col>
 
             <Col lg={4} sm={6}>
-                <Button className="button-discount" onClick={props.setDiscountModal} >Discount</Button>{" "}
+                <Button className="button-discount" onClick={props.setDiscountModal} >Kot</Button>{" "}
                 <Button className="button-discount" onClick={props.setChargesModal} >Charges</Button>
             </Col>
         </div>

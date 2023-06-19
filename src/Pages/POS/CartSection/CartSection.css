@@ -93,6 +93,13 @@
 .order-summery-section {
     padding: 10px 5px;
 }
+.order-summery-section-main {
+    /* background: ;
+    padding: 10px 5px;
+    position: fixed;
+    width: inherit;
+    padding: 10px 25px; */
+}
 
 .order-summery-section-item {
     display: inline-flex;

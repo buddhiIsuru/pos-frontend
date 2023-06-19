@@ -8,10 +8,13 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import './Navbar.css'
 import moment from "moment";
 import { localStorageGetItem } from "../../constance/LocalStorageManagement";
+import { HiHome } from "@react-icons/all-files/hi/HiHome";
+import { Link } from "react-router-dom";
 
 const MainNavbar = (props) => {
 
     const [companyName, setCompanyName] = useState("");
+    const [userShift, setUserShift] = useState("");
     const [time, setTime] = useState(new Date());
 
     useEffect(() => {
@@ -43,6 +46,7 @@ const MainNavbar = (props) => {
                     >
                         <div className="date-div"><span className="date-span">{moment(new Date()).format('MMMM Do YYYY')}</span></div>
                         <div className="clock-div">{time.toLocaleTimeString()}</div>
+
                         {/* <NavDropdown title="Link" id="navbarScrollingDropdown"> */}
                         {/* <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                             <NavDropdown.Item href="#action4">
@@ -58,9 +62,12 @@ const MainNavbar = (props) => {
                         </Nav.Link> */}
                     </Nav>
                     <div className="nav-button-row">
-                        <Button className="nav-button" onClick={props.handle.enter}>
+                        <Link to="/pos">
+                            <div className="pos-div"> POS </div>
+                        </Link>
+                        {/* <Button className="nav-button" onClick={props.handle.enter}>
                             <BiFullscreen size={20} />
-                        </Button>
+                        </Button> */}
                         {/* <Button className="nav-button">
                             <FaCalculator size={20} />
                         </Button> */}

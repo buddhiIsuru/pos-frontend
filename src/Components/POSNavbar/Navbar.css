@@ -1,0 +1,48 @@
+.date-span{
+    font-size: 16px;
+    font-weight: 400;
+    position: relative;
+    /* top: -10px; */
+    color: #8e939a;
+    z-index: 10000;
+}
+
+.nav-button-row{
+    justify-content: space-around;
+}
+.nav-button{
+    margin: 0 5px;
+    justify-content: space-around;
+    background: #1f1d2b;
+    border: 2px solid #ea7c69;
+}
+.username-button{
+    margin: 0 5px;
+    justify-content: space-around;
+    background: #1f1d2b;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+.date-div{
+    margin: 0 25px;
+    text-align: center;
+    font-size: 20px;
+}
+.clock-div{
+    margin: 0 25px;
+    text-align: center;
+    justify-content: space-around;
+    font-size: 20px;
+    font-weight: bold;
+}
+.home-div{
+    /* margin: 5px; */
+    text-align: center;
+    justify-content: space-around;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100px;
+    color: white;
+}
+
