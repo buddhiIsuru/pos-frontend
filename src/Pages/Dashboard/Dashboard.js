@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { localStorageGetItem, localStorageSetItem } from "../../constance/LocalStorageManagement";
-import StartCashModal from "../StartCashModal/StartCashModal";
 import { shiftCheck, shiftClose, shiftStart } from "../../Service/authService";
 import './Dashboard.css'
 import { Button, Row } from "react-bootstrap";
-import CloseCashModal from "../StartCashModal/StartCashModal";
+import CloseCashModal from "../CloseCashModal/CloseCashModal";
 import moment from "moment";
+import StartCashModal from "../StartCashModal/StartCashModal";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -17,6 +18,7 @@ const Dashboard = () => {
     const [close_time, setCloseTime] = useState("");
     const [startCashModalShow, setStartCashModalShow] = useState(false);
     const [closeCashModalShow, setCloseCashModalShow] = useState(false);
+    const navigateTo = useNavigate();
 
     useEffect(() => {
         setUserRole(localStorageGetItem("role"));
@@ -29,8 +31,9 @@ const Dashboard = () => {
 
     const checkShift = async (id) => {
         const response = await shiftCheck(id);
+        console.log(response);
         if (response.status === 200) {
-            if (isNaN(response.data.id)) {
+            if (response.data.id===0) {
                 setStartCashModalShow(true);
             } else {
                 setStartAmount(response.data.startAmount);
@@ -51,6 +54,7 @@ const Dashboard = () => {
         if (response.status === 200) {
             localStorageSetItem("user-shift", response.data);
             setStartCashModalShow(false);
+            checkShift(userId);
         }
     }
     const closeShift = async (value) => {
@@ -64,7 +68,13 @@ const Dashboard = () => {
             localStorageSetItem("role", response.data);
             setCloseCashModalShow(false);
             localStorage.removeItem("user-shift");
+            logoutUser();
         }
+    }
+
+    const logoutUser = async () => {
+        localStorage.clear();
+        navigateTo("/");
     }
 
     return (
@@ -89,7 +99,7 @@ const Dashboard = () => {
                     : null
             }
             {
-                startAmount || close_time ?
+                startAmount || start_time ?
                     <Button onClick={() => setCloseCashModalShow(true)}>Close Shift</Button>
                     :
                     null
@@ -103,7 +113,7 @@ const Dashboard = () => {
             <CloseCashModal
                 show={closeCashModalShow}
                 handleClose={() => setCloseCashModalShow(false)}
-                handleStartShift={(value) => closeShift(value)}
+                handleCloseShift={(value) => closeShift(value)}
             />
         </>
     )

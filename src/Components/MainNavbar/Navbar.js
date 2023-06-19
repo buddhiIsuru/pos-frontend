@@ -19,6 +19,7 @@ const MainNavbar = (props) => {
 
     useEffect(() => {
         setCompanyName(localStorageGetItem("outlet").outletName);
+        setUserShift(localStorageGetItem("user-shift"));
     }, [])
 
     useEffect(() => {
@@ -62,9 +63,13 @@ const MainNavbar = (props) => {
                         </Nav.Link> */}
                     </Nav>
                     <div className="nav-button-row">
-                        <Link to="/pos">
-                            <div className="pos-div"> POS </div>
-                        </Link>
+                        {
+                            userShift ?
+                                <Link to="/pos">
+                                    <div className="pos-div"> POS </div>
+                                </Link>
+                                : null
+                        }
                         {/* <Button className="nav-button" onClick={props.handle.enter}>
                             <BiFullscreen size={20} />
                         </Button> */}
