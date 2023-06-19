@@ -64,7 +64,7 @@ const MainNavbar = (props) => {
                     </Nav>
                     <div className="nav-button-row">
                         {
-                            userShift ?
+                            !userShift ?
                                 <Link to="/pos">
                                     <div className="pos-div"> POS </div>
                                 </Link>
