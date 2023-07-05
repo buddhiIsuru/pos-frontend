@@ -1,0 +1,23 @@
+.device-list {
+    display: inline-flex;
+    width: auto;
+    margin-right: 10px;
+}
+
+.device-btn {
+    background: white;
+    border: 2px solid #ea7c69;
+    border-radius: 10px;
+    margin: 0 10px;
+    color: black;
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.device-btn:hover {
+    background: #ea7c69;
+    color: white;
+    border: 2px solid black;
+}

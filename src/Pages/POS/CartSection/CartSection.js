@@ -51,10 +51,10 @@ const CartSection = (props) => {
                 {/* <div className="tb-header-qty">QTY</div> */}
             </div>
             <div>
-                <Button onClick={() => props.setOrderType("dine_in")} style={{ background: props.orderType === "dine_in" ? "#ea7c69" : "#1f1d2b" }} className="order-type-button">Dine in</Button>
-                <Button onClick={() => props.setOrderType("pick_up")} style={{ background: props.orderType === "pick_up" ? "#ea7c69" : "#1f1d2b" }} className="order-type-button">Pick Up</Button>
-                <Button onClick={() => props.setOrderType("delivery")} style={{ background: props.orderType === "delivery" ? "#ea7c69" : "#1f1d2b" }} className="order-type-button">Delivery</Button>
-                <Button onClick={() => props.setOrderType("drive_thru")} style={{ background: props.orderType === "drive_thru" ? "#ea7c69" : "#1f1d2b" }} className="order-type-button">Drive Thru</Button>
+                <Button onClick={() => props.setOrderType("dine_in")} style={{ background: props.orderType === "dine_in" ? "#ea7c69" : "white",color: props.orderType === "dine_in" ? "white" : "black" }} className="order-type-button">Dine in</Button>
+                <Button onClick={() => props.setOrderType("pick_up")} style={{ background: props.orderType === "pick_up" ? "#ea7c69" : "white",color: props.orderType === "pick_up" ? "white" : "black" }} className="order-type-button">Pick Up</Button>
+                <Button onClick={() => props.setOrderType("delivery")} style={{ background: props.orderType === "delivery" ? "#ea7c69" : "white",color: props.orderType === "delivery" ? "white" : "black" }} className="order-type-button">Delivery</Button>
+                <Button onClick={() => props.setOrderType("drive_thru")} style={{ background: props.orderType === "drive_thru" ? "#ea7c69" : "white",color: props.orderType === "drive_thru" ? "white" : "black" }} className="order-type-button">Drive Thru</Button>
 
                 <div className="cart-item-scroll-section">
                     {
@@ -83,7 +83,7 @@ const CartSection = (props) => {
                     value={props.grandTotalAmount}
                 />
                 <div className="button-row">
-                    <Button className="button-kot" disabled={props.cartDataList.length === 0} onClick={props.onClickKOT}>
+                    <Button className="button-kot" disabled={props.paymentIsDissable} onClick={props.onClickKOT}>
                         {
                             props.isLoading ?
                                 <div class="spinner-border text-light" role="status" />

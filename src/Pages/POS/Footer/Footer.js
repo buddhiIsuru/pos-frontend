@@ -1,6 +1,8 @@
 import React from 'react';
 import './Footer.css'
 import { Button, Col } from 'react-bootstrap';
+import Receipt from '../Bill/Receipt';
+import PrintButton from './PrintButton';
 
 const Footer = (props) => {
     return (
@@ -12,12 +14,14 @@ const Footer = (props) => {
             </Col>
 
             <Col lg={4} sm={6}>
+                <Receipt/>
+                <PrintButton/>
                 {/* <Button className="button-discount" onClick={props.setDiscountModal} >Discount</Button>{" "}
                 <Button className="button-discount" onClick={props.setChargesModal} >Charges</Button> */}
             </Col>
 
             <Col lg={4} sm={6}>
-                <Button className="button-discount" onClick={props.setDiscountModal} >Kot</Button>{" "}
+                <Button className="button-discount" onClick={props.setDiscountModal} >Discount</Button>{" "}
                 <Button className="button-discount" onClick={props.setChargesModal} >Charges</Button>
             </Col>
         </div>

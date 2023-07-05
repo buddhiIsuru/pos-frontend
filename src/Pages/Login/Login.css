@@ -4,6 +4,7 @@
     height: 75vh;
     padding: 15% 20px;
     border-radius: 10px;
+    background-color: #1f1d2b;
 }
 .circle {
     position: absolute;

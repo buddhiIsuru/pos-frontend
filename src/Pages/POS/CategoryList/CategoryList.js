@@ -9,7 +9,7 @@ const CategoryList = (props) => {
                 {
                     props.dataList.map((category, index) => {
                         return (
-                            <Button className="category-btn" style={{ background: props.selectCat.id === category.id ? "#ea7c69" : "#1f1d2b" }} onClick={() => { props.onSelectCategory(category) }}>{category.name}</Button>
+                            <Button className="category-btn" style={{ background: props.selectCat.id === category.id ? "#ea7c69" : "white",color: props.selectCat.id === category.id ? "white" : "black" }} onClick={() => { props.onSelectCategory(category) }}>{category.name}</Button>
                         )
                     })
                 }

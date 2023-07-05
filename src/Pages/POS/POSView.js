@@ -4,7 +4,7 @@ import { Col, Row, Spinner } from "react-bootstrap";
 import ItemSection from "./ItemSection/ItemSection";
 import CartSection from "./CartSection/CartSection";
 import { getCategoryOutletVice } from "../../Service/categoryService";
-import { getProductCategoryVice } from "../../Service/productService";
+import { getProductCategoryVice, getProductDeviceAndCategoryVice } from "../../Service/productService";
 import PaymentModal from "./PaymentPages/PaymentModal";
 import DiscountModal from "./DiscountModal/DiscountModal";
 import { cancelInvoiceOutlet, getDraftInvoiceList, getInvoiceData, getLatestInvoiceId, getShiftInvoiceReport, saveInvoice } from "../../Service/invoiceService";
@@ -16,14 +16,16 @@ import { localStorageGetItem } from "../../constance/LocalStorageManagement";
 import CustomerModal from "./CustomerModal/CustomerModal";
 import { saveCustomer } from "../../Service/customerService";
 import { imageBaseUrl } from './../../constance/baseUrl';
+import OrderDevices from "./OrderDevices/OrderDevices";
+import { getDevicesOutletId } from "../../Service/deviceService";
 
 const POSView = forwardRef((props, ref) => {
 
     const componentRef = useRef(null);
 
     const [tax, setTax] = useState(0);
-    const [discount, setDiscount] = useState(0);
     const [total, setTotal] = useState(0);
+    const [discount, setDiscount] = useState(0);
     const [subTotal, setSubTotal] = useState(0);
     const [grandTotal, setGrandTotal] = useState(0);
     const [chargesAmount, setChargesAmount] = useState(0);
@@ -31,31 +33,35 @@ const POSView = forwardRef((props, ref) => {
 
     const [cartList, setCartList] = useState([]);
     const [draftList, setDraftList] = useState([]);
+    const [deviceList, setDeviceList] = useState([]);
     const [chargesSet, setchargesSet] = useState([]);
     const [paymentList, setPaymentList] = useState([]);
     const [propductList, setProductList] = useState([]);
     const [categoryList, setcategoryList] = useState([]);
     const [cartPriceList, setCartPriceList] = useState([]);
+
+    const [selectDevice, setSelectDevice] = useState({});
     const [selectCategory, setSelectCategory] = useState({});
 
     const [isDraft, setIsDraft] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [draftModal, setDraftModal] = useState(false);
     const [chargesModal, setChargesModal] = useState(false);
     const [paymentModal, setPaymentModal] = useState(false);
-    const [discountModal, setDiscountModal] = useState(false);
     const [customerModal, setCustomerModal] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [discountModal, setDiscountModal] = useState(false);
     const [isLoadingCategory, setIsLoadingCategory] = useState(false);
     const [isLoadingProduct, setIsLoadingProduct] = useState(false);
 
-    const [invoiceId, setInvoiceID] = useState(null);
-    const [outletId, setOutletID] = useState(null);
-    const [userId, setUserId] = useState(null);
-    const [outletName, setOutletName] = useState(null);
     const [logoId, setLogoId] = useState(null);
+    const [userId, setUserId] = useState(null);
+    const [outletId, setOutletID] = useState(null);
+    const [invoiceId, setInvoiceID] = useState(null);
+    const [outletName, setOutletName] = useState(null);
     const [customerID, setCustomerID] = useState(null);
 
     const [orderId, setOrderID] = useState("");
+    const [deviceId, setDeviceID] = useState(null);
     const [orderType, setOrderType] = useState("");
     const [cashAmount, setCashAmount] = useState("");
     const [paymentType, setPaymentType] = useState("");
@@ -67,8 +73,8 @@ const POSView = forwardRef((props, ref) => {
         setOutletName(localStorageGetItem("outlet").outletName);
         setUserId(localStorageGetItem("userId"));
         setLogoId(localStorageGetItem("outlet").logoId);
-        getAllCategory(localStorageGetItem("outlet").id);
-        getInvoiceReport(1);
+        // getAllCategory(localStorageGetItem("outlet").id);
+        getAllDevices(localStorageGetItem("outlet").id);
         getLatestInvoice(localStorageGetItem("outlet").id);
     }, []);
 
@@ -80,22 +86,32 @@ const POSView = forwardRef((props, ref) => {
         onClickClearCart,
     }));
 
-    const getAllCategory = async (id) => {
+    const getAllDevices = async (id) => {
+        setIsLoadingCategory(true);
+        const response = await getDevicesOutletId(id);
+        console.log(response);
+        if (response.status === 200) {
+            setDeviceID(response.data[0].deviceId);
+            setDeviceList(response.data);
+            setSelectDevice(response.data[0]);
+            getAllCategory(id, response.data[0].deviceId);
+        }
+        setIsLoadingCategory(false);
+    }
+
+    const getAllCategory = async (id, device_id) => {
+        console.log("device_id ====> ");
+        console.log(device_id);
         setIsLoadingCategory(true);
         const response = await getCategoryOutletVice(id);
         if (response.status === 200) {
             setcategoryList(response.data);
             selectCategoryClick(response.data[0]);
+            ProductFilter(response.data[0].id, device_id);
         }
         setIsLoadingCategory(false);
     }
 
-    const getInvoiceReport = async (id) => {
-        const response = await getShiftInvoiceReport(id);
-        console.log(response);
-        if (response.status === 200) {
-        }
-    }
 
     const getLatestInvoice = async (outlet_id) => {
         const response = await getLatestInvoiceId(outlet_id);
@@ -113,10 +129,23 @@ const POSView = forwardRef((props, ref) => {
 
     const selectCategoryClick = async (data) => {
         setSelectCategory(data);
+        ProductFilter(data.id, selectDevice.deviceId);
+    }
+
+    const selectDeviceClick = async (data) => {
+        setSelectDevice(data);
+        ProductFilter(selectCategory.id, data.deviceId);
+    }
+
+    const ProductFilter = async (category_id, device_id) => {
         setIsLoadingProduct(true);
-        const response = await getProductCategoryVice(data.id);
-        if (response.status === 200) {
-            setProductList(response.data);
+        if (device_id) {
+            const response = await getProductCategoryVice(category_id, device_id);
+            // const responseS = await getProductDeviceAndCategoryVice(data.id);
+            console.log(response);
+            if (response.status === 200) {
+                setProductList(response.data);
+            }
         }
         setIsLoadingProduct(false);
     }
@@ -445,6 +474,11 @@ const POSView = forwardRef((props, ref) => {
             </div>
             <Row>
                 <Col lg={7} sm={11}>
+                    <OrderDevices
+                        dataList={deviceList}
+                        select={selectDevice}
+                        onClick={(data) => selectDeviceClick(data)}
+                    />
                     {
                         isLoadingCategory ?
                             <div style={{ textAlign: "center", marginTop: "50px" }}><Spinner animation="border" variant="primary" /></div>
@@ -461,7 +495,7 @@ const POSView = forwardRef((props, ref) => {
                         onSelectProductClick={(data) => selectProductClick(data)}
                     />
                 </Col>
-                <Col lg={5} sm={11} style={{ background: "#1f1d2b",height: "100%", marginBottom: "50px", marginTop: "-20px" }}>
+                <Col lg={5} sm={11} style={{ background: "white", height: "100%",position:"fixed",right:"0", marginBottom: "50px",backgroundColor:"white", marginTop: "-20px" }}>
                     <CartSection
                         totalAmount={total}
                         taxAmount={tax}

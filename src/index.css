@@ -16,3 +16,8 @@ code {
 a{
   text-decoration: none !important;
 }
+
+:root{
+  --theam-background-color1:#252836;
+  --theam-background-color2:#ea7c69;
+}

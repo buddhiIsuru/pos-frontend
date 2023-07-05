@@ -42,7 +42,7 @@ const Bill80 = (props) => {
                                 <tr>
                                     <td style={{ width: "50%", textAlign: "left" }}>
                                         {
-                                            // removeReplaceCharactors(props.orderType)
+                                            removeReplaceCharactors(props.orderType)
                                         }
                                     </td>
                                     <td style={{ width: "50%", textAlign: "right" }}>

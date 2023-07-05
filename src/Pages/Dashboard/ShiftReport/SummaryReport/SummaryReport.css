@@ -1,0 +1,14 @@
+.report-row{
+    width: 50%;
+    margin: 0;
+    padding: 5px 10px;
+}
+.report-row-left-child{
+    width: 80%;
+    text-align: left;
+}
+.report-row-right-child{
+    /* background-color: aqua; */
+    width: 20%;
+    text-align: right;
+}

@@ -1,13 +1,15 @@
 .order-id {
     font-size: 20px;
     font-weight: 600;
-    color: white;
+    color: black;
     margin: 15px 0;
 }
 
 .order-type-button {
     width: auto;
+    border: 1px solid #1f1d2b;
     font-size: 14px;
+    color: #1f1d2b;
     padding: 3px 10px;
     border-radius: 5px;
     margin-right: 10px;
@@ -33,7 +35,7 @@
 .tb-header {
     display: inline-flex;
     width: 100%;
-    color: white;
+    color: black;
     font-weight: 700;
     font-size: 14px;
     padding-bottom: 15px;
@@ -55,8 +57,8 @@
 
 .customer-input {
     border: 1px solid #ea7c69;
-    background-color: #1f1d2b;
-    color: white;
+    background-color: #efefef;
+    color: black;
     padding: 7px 10px;
     outline: #ea7c69;
     border-radius: 5px;
@@ -99,12 +101,16 @@
     position: fixed;
     width: inherit;
     padding: 10px 25px; */
+    position: absolute;
+    bottom: 150px;
+    width: 90%;
+    background: white;
 }
 
 .order-summery-section-item {
     display: inline-flex;
     width: 100%;
-    color: white;
+    color: black;
     font-size: 16px;
     padding: 5px 0;
 }
@@ -122,10 +128,9 @@
 .order-summery-section-item-gt {
     display: inline-flex;
     width: 100%;
-    color: white;
+    color: black;
     font-size: 18px;
     font-weight: bold;
-    color: white;
     padding: 5px 0;
 }
 
