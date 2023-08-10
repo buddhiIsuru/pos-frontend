@@ -63,13 +63,13 @@ const MainNavbar = (props) => {
                         </Nav.Link> */}
                     </Nav>
                     <div className="nav-button-row">
-                        {
-                            !userShift ?
+                        {/* { */}
+                            {/* !userShift ? */}
                                 <Link to="/pos">
                                     <div className="pos-div"> POS </div>
                                 </Link>
-                                : null
-                        }
+                                {/* : null */}
+                        {/* } */}
                         {/* <Button className="nav-button" onClick={props.handle.enter}>
                             <BiFullscreen size={20} />
                         </Button> */}

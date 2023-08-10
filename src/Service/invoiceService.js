@@ -28,6 +28,10 @@ export const getInvoiceOutlet = (id) => {
     console.log(url);
     return httpGET(url);
 };
+export const getInvoiceUser = (id) => {
+    const url = baseUrl + "/invoice/get-invoice-user/"+id;
+    return httpGET(url);
+};
 export const getInvoice = (id) => {
     const url = baseUrl + "/invoice/get-outlet-invoice-data/"+id;
     console.log(url);

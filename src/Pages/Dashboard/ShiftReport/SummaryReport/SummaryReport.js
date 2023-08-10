@@ -12,16 +12,28 @@ const ReportRow=(params)=>{
 
 }
 
-const SummaryReport = () => {
+const SummaryReport = (props) => {
     return (
         <>
             <ReportRow
                 label="Gross Sales"
-                value="808"
+                value={parseFloat(props.data?.grossSales).toFixed(3)}
             />
             <ReportRow
-                label="Total Tendered"
-                value="808"
+                label="Discount"
+                value={parseFloat(props.data?.discount).toFixed(3)}
+            />
+            <ReportRow
+                label="Refunds"
+                value={parseFloat(props.data?.refunds).toFixed(3)}
+            />
+            <ReportRow
+                label="Tax"
+                value={parseFloat(props.data?.tax).toFixed(3)}
+            />
+            <ReportRow
+                label="Net Sales"
+                value={parseFloat(props.data?.netSales).toFixed(3)}
                 style={{
                     fontSize:"18px",
                     fontWeight:"bold"

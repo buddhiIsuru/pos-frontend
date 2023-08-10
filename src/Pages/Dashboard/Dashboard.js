@@ -8,6 +8,7 @@ import moment from "moment";
 import StartCashModal from "../StartCashModal/StartCashModal";
 import { useNavigate } from "react-router-dom";
 import SummaryReport from "./ShiftReport/SummaryReport/SummaryReport";
+import { getInvoiceUser } from "../../Service/invoiceService";
 
 const Dashboard = () => {
 
@@ -19,13 +20,15 @@ const Dashboard = () => {
     const [close_time, setCloseTime] = useState("");
     const [startCashModalShow, setStartCashModalShow] = useState(false);
     const [closeCashModalShow, setCloseCashModalShow] = useState(false);
+    const [invoiceReport, setInvoiceReport] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const navigateTo = useNavigate();
 
     useEffect(() => {
         setUserRole(localStorageGetItem("role"));
         setUserId(localStorageGetItem("userId"));
-        if (localStorageGetItem("role").name === "WAITOR") {
+        getInvoiceReport(localStorageGetItem("userId"));
+        if (localStorageGetItem("role").name !== "ADMIN") {
             checkShift(localStorageGetItem("userId"));
             // setStartCashModalShow(true);
         }
@@ -79,6 +82,13 @@ const Dashboard = () => {
         }
         setIsLoading(false);
     }
+    const getInvoiceReport = async (value) => {
+        const response = await getInvoiceUser(value);
+        console.log(response);
+        if (response.status === 200) {
+            setInvoiceReport(response.data);
+        }
+    }
 
     const logoutUser = async () => {
         localStorage.clear();
@@ -121,7 +131,9 @@ const Dashboard = () => {
                         <br />
                         <br />
 
-                        {/* <SummaryReport /> */}
+                        <SummaryReport
+                            data={invoiceReport}
+                        />
                     </>
             }
 
